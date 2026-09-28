@@ -48,7 +48,7 @@ jobs:
             exit 0
           fi
           npm install -g @railway/cli
-          railway up --detach
+          railway up --service day12-agent --environment production --detach -y
       - name: Smoke test
         if: ${{ vars.PUBLIC_URL != '' }}
         run: |

@@ -6,7 +6,7 @@
 > Cách trả lời: thay dòng placeholder trong mỗi câu bằng câu trả lời của bạn.
 > `grade.py` đếm số câu đã trả lời (15 điểm cho 10 câu).
 >
-> Họ và tên: ..........................  Mã học viên: ..........................
+> Họ và tên: Nguyễn Như Tài  Mã học viên: 2A202602976
 
 ---
 
@@ -120,4 +120,4 @@ Ghi lại **một** lỗi bạn gặp khi deploy lên cloud (build fail, health 
 timeout, sai REDIS_URL, app không đọc `$PORT`...): thông báo lỗi là gì, bạn
 tìm ra nguyên nhân bằng cách nào, và sửa ra sao?
 
-> *Câu trả lời của bạn*
+> Lần deploy đầu trên Railway, log báo `Application startup failed` và `NotImplementedError: TODO (CP4): cài đặt install`. Traceback chỉ vào `lifecycle.install()` được gọi từ `lifespan` trong `app/main.py`. Nguyên nhân: image đang chạy vẫn là bản starter, hàm `install()` chỉ `raise` chứ chưa đăng ký SIGTERM/SIGINT. Mình sửa `install()` để nhớ handler cũ rồi gắn `request_shutdown`, deploy lại service `day12-agent`. Log sau đó có `Application startup complete` và `Uvicorn running on http://0.0.0.0:8080`. `/health` trả 200, `/ready` trả 200 với `redis: true`.
